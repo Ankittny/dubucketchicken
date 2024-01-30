@@ -10,7 +10,7 @@ const VerifyyouPage = () => {
     <>
       <Header />
       <Helmet>
-        <title>Dubucket-verify-you</title>
+        <title>Dubucket Food & Beverage - Fast Delivery</title>
         <meta name="description" content="Helmet application" />
       </Helmet>
       <Verifyyou EmailId={slug} />

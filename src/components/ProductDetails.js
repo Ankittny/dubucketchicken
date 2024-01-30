@@ -1,9 +1,16 @@
-import React from "react";
+import React,{useState} from "react";
 import Link from '@mui/material/Link';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import postApi from "../Model/postApi";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import {addToCart } from "../Actions/cartActions";
 
 const ProductDetails = (props) => {
+   const [loadingProductId, setLoadingProductId] = useState(null);
+   const dispatch = useDispatch();
+   const history = useHistory();
    let images = props.gallery;
    var obj2 = { id: 100, product_id: 37, image: props.ProductDetail.thumb_image, status: 1, created_at: 234234345, updated_at: 2345345 };
    images.push(obj2);
@@ -24,6 +31,44 @@ const ProductDetails = (props) => {
          slidesToSlide: 1, // optional, default to 1.
       },
    };
+
+
+   const addToCartHandler = (objet) => {
+      setLoadingProductId(objet.id);
+     // setIsLoadingButton(true);
+      const auth = JSON.parse(localStorage.getItem('auth'));
+      if (auth != null) {
+          const url = `token=${auth?.access_token}&product_id=${objet?.id}&quantity=${"1"}`;
+          //console.log("this is test Ankit",url);
+          postApi.addToCard(url).then((res) =>{
+             
+                  dispatch(addToCart(objet?.id,auth.access_token));
+                  setLoadingProductId(null);
+                  //console.log(res)
+              }).catch((err) => {
+                  if(err.response.status===403){
+                      if(err.response.data.message==="Quantity not available in our stock"){
+                          dispatch(addToCart(objet?.id,auth.access_token));
+                          setLoadingProductId(null);
+                          return false;
+                      } if(err.response.data.message === "Item already exist"){
+                           dispatch(addToCart(objet?.id,auth.access_token));
+                           setLoadingProductId(null);
+                      } else {
+                          //console.log(err.response);
+                          dispatch(addToCart(objet?.id,auth.access_token));
+                          setLoadingProductId(null);
+                      } 
+                  }
+              });
+      } else {
+
+          history.push("/login")
+      }
+  };
+
+
+
    return (
       <>
          <nav aria-label="breadcrumb" class="breadcrumb mb-0">
@@ -83,26 +128,13 @@ const ProductDetails = (props) => {
                            })()}
 
 
-                           <Link href="#">
-                              <div className="rating-wrap d-flex align-items-center mt-2">
-                                 <ul className="rating-stars list-unstyled">
-                                    <li>
-                                       <i className="icofont-star text-warning"></i>
-                                       <i className="icofont-star text-warning"></i>
-                                       <i className="icofont-star text-warning"></i>
-                                       <i className="icofont-star text-warning"></i>
-                                       <i className="icofont-star"></i>
-                                    </li>
-                                 </ul>
-                                 <p className="label-rating text-muted ml-2 small"> ({props?.TotalReciewQty} Reviews)</p>
-                              </div>
-                           </Link>
+                          
                         </div>
                         <div className="pt-2">
                            <div className="row">
                               <div className="col-6">
-                                 <p className="font-weight-bold m-0">Delivery</p>
-                                 <p className="text-muted m-0">Free</p>
+                                 {/* <p className="font-weight-bold m-0">Delivery</p>
+                                 <p className="text-muted m-0">Free</p> */}
                               </div>
                               <div className="col-6 text-right">
                                  {(() => {
@@ -126,7 +158,6 @@ const ProductDetails = (props) => {
                            <div className="pt-3 bg-white">
                               <div className="d-flex align-items-center">
                                  <div className="btn-group osahan-radio btn-group-toggle" data-toggle="buttons">
-
                                     {props.ActiveVariants.map((object) => (
                                        <label className="btn btn-secondary active">
                                           <input type="radio" value={object?.price} name="options" id="option1" checked /> {object?.name}
@@ -135,14 +166,12 @@ const ProductDetails = (props) => {
                                        </label>
                                     ))}
                                  </div>
-                                 <Link className="ml-auto" href="#">
-                                    <form id='myform' className="cart-items-number d-flex" method='POST' action='#'>
-                                       <input type='button' value='-' className='qtyminus btn btn-success btn-sm' field='quantity' />
-                                       <input type='text' name='quantity' value='1' className='qty form-control' />
-                                       <input type='button' value='+' className='qtyplus btn btn-success btn-sm' field='quantity' />
-                                    </form>
-                                    <Link href="#" className="btn btn-warning p-3 rounded btn-block d-flex align-items-center justify-content-center mr-3 btn-sm"><i className="icofont-plus m-0 mr-2"></i>ADD</Link>
-                                 </Link>
+                                 {props?.ProductDetail?.qty === 0 || props?.ProductDetail?.qty ===-1  ? (
+                                    <button  className="btn btn-danger btn-sm ml-auto">Out of stock</button>
+                                 ) : (
+                                    <button onClick={() => addToCartHandler(props?.ProductDetail)} className="btn btn-success btn-sm ml-auto" disabled={loadingProductId === props?.ProductDetail?.id}>{loadingProductId === props?.ProductDetail?.id ? 'Loading...' : 'Add'}</button>
+                                 )}
+                                 {/* <Link style={{color: "white"}} href="#" className="btn btn-success btn-sm ml-auto"><i className="icofont-plus m-0 mr-2"></i>ADD</Link> */}
                               </div>
                            </div>
                            <div className="pt-3">

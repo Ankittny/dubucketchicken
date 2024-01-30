@@ -1,0 +1,176 @@
+@media (max-width: 736px) and (min-width: 320px){
+.osahan-location-drop{
+    display:none!important;
+}  
+.mycart .icofont-shopping-cart {
+    color: white;
+    font-size: 20px;
+}
+.cart-items-show {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+}
+.navbar .ml-3.d-flex.align-items-center {
+    display: none!important;
+}
+.osahan-signup h2{
+    font-size: 24px;
+}
+.osahan-signin h2{
+    font-size: 24px;
+}
+.osahan-signin{
+    margin: 25px 0px;
+    padding: 0px!important;
+}
+.osahan-signup.shadow.bg-white.p-4.rounded {
+    margin: 25px 0px;
+    padding: 0px!important;
+}
+.osahan-main-body .vh-100{
+    height: inherit!important;
+}
+.login_txt{
+    display: none;
+}
+.login_icon{
+    display: block;
+}
+.anchor_login {
+    position: absolute;
+    right: 110px;
+}
+.anchor_caRt {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+.left-section {
+    height: auto;
+    left: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    top: inherit;
+    width: 100%;
+}
+.filter_Bar h4 {
+    font-size: 20px;
+    margin-top: 8px;
+}
+.list-card-image .p-3 {
+    padding: 10px!important;
+}
+.m-view{
+    display: inline-block!important;
+}
+.list-card-image h6{
+    font-size: 13px;
+}
+.list-card-image .price {
+    font-size: 13px;
+    font-weight: bold;
+}
+.offer-price {
+    font-size: 13px;
+}
+.osahan--products-listing .col-lg-3.col-md-3.col-sm-3{
+    position: relative;
+    width: 20%;
+    padding: 5px;
+}
+.osahan--products-listing .col-lg-9.col-md-9.col-sm-9{
+    position: relative;
+    width: 80%;
+    padding: 0px 5px;
+}
+.osahan--products-listing .col-lg-3.col-md-3.col-sm-3 .left-section .gwBBkO {
+    display: inline-block;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: inherit;
+    width: 100%;
+}
+.osahan--products-listing .col-lg-3.col-md-3.col-sm-3 .left-section .giIiuy {
+    height: 48px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+
+}
+.osahan--products-listing .col-lg-3.col-md-3.col-sm-3 .left-section .jUjInL {
+    position: relative;
+    padding: 5px;
+}
+.osahan--products-listing .col-lg-3.col-md-3.col-sm-3 .left-section .fYRgqC {
+    color: rgb(31, 31, 31);
+    font-size: 10px;
+    font-weight: 500;
+    text-align: center;
+    line-height: 14px;
+}
+.filter_Bar {
+    position: relative;
+    background: #fff;
+    padding: 5px 5px;
+    border-radius: 6px;
+}
+.filter_Bar .btn {
+    padding: 5px;
+}
+.list-card-image img {
+    height: 70px;
+}
+.member-plan.position-absolute {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.col-lg-5.dn_srch{
+    display:none;
+}
+.col-lg-2.dn_loc{
+    display:none;
+}
+.col-lg-2.dn_logo{
+    width: 40%;
+}
+.col-lg-3.dn_cart {
+    width: 60%;
+}
+.osahan-slider-item img{
+    height: 110px;
+}
+.osahan-slider-item .ml-5, .mx-5 {
+    margin-left: 0!important;
+}
+
+.osahan-slider-item .mr-5, .mx-5 {
+    margin-right: 0!important;
+}
+.pick_today col-12.col-lg-2.col-md-6.col-sm-6{
+    width: 50%;
+}
+.pick_today .col-12.col-lg-2.col-md-6.col-sm-6.mb-3 {
+    width: 50%;
+    max-width: 50%;
+}
+.categories-slider .col-c{
+    width: 25%;
+    padding: 5px;
+}
+.categories-slider .c-it {
+    margin: 0;
+}
+.c-it p {
+    font-size: 12px;
+    line-height: 14px;
+}
+.c-it img {
+    height: auto;
+}
+.loginn_txt {
+    display: none;
+}
+}

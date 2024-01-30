@@ -1,13 +1,42 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
+import postApi from "../Model/postApi.js";
 import Link from '@mui/material/Link';
-const Footer = () => {
+const Footer = ()  => {
+const [socialItem,setSocial] = useState([]);
+const [links,setLinks] = useState([]);
+
+useEffect(()  => {
+ postApi.SocialIcon().then((res) =>{
+      //console.log(res?.data?.links)
+      setSocial(res?.data?.links);
+  }).catch((err) => {
+      console.log("this is error =>>>>",err)
+  });
+}, []);
+
+useEffect(()  => {
+   postApi.categorys().then((res) =>{
+        setLinks(res?.data?.categories);
+        //console.log("this is test",links);
+    }).catch((err) => {
+        console.log("this is error =>>>>",err)
+    });
+  }, []);
+
+  const groupSize = 6;
+  const groupedLinks = Array.from(
+    { length: Math.ceil(links.length / groupSize) },
+    (_, index) => links.slice(index * groupSize, (index + 1) * groupSize)
+  );
+console.log(groupedLinks);
+
     return (
         <>
        
          <footer className="section-footer border-top bg-white">
-            <section className="footer-top py-4">
+            {/* <section className="footer-top py-4">
                <div className="container">
-                  <div className="row">
+                  <div className="row" style={{ display: 'flex', justifyContent: 'center' }}>
                      <div className="col-md-4">
                         <form>
                            <div className="input-group">
@@ -26,78 +55,61 @@ const Footer = () => {
                      </div>
                   </div>
                </div>
-            </section>
+            </section> */}
             <section className="footer-main border-top pt-5 pb-4">
                <div className="container">
-                  <div className="row">
+                  <div className="row d-flex justify-content-center" >
                      <aside className="col-md">
-                        <h6 className="title">Products</h6>
+                        <h6 className="title">Useful Links</h6>
                         <ul className="list-unstyled list-padding">
-                           <li> <Link href="listing.html" className="text-dark">Listing</Link></li>
-                           <li> <Link href="product_details.html" className="text-dark">Detail</Link></li>
-                           <li> <Link href="picks_today.html" className="text-dark">Trending</Link></li>
-                           <li> <Link href="recommend.html" className="text-dark">Recommended</Link></li>
-                           <li> <Link href="fresh_vegan.html" className="text-dark">Most Popular</Link></li>
+                           <li> <Link href="/about" className="text-dark">About</Link></li>
+                           <li> <Link href="/contact" className="text-dark">Contact</Link></li>
+                           <li> <Link href="/become-seller" className="text-dark">Become Seller</Link></li>
+                           <li> <Link href="/privacy" className="text-dark">Privacy Policy</Link></li>
+                           <li> <Link href="/terms-and-conditions" className="text-dark">Terms And Conditions</Link></li>
+                           
                         </ul>
                      </aside>
+
+                     {/* <h6 className="title">Category</h6> */}
+                     {groupedLinks.map((group, groupIndex) => (
                      <aside className="col-md">
-                        <h6 className="title">Checkout Process</h6>
-                        <ul className="list-unstyled list-padding">
-                           <li> <Link href="cart.html" className="text-dark">Cart</Link></li>
-                           <li> <Link href="cart.html" className="text-dark">Order Address</Link></li>
-                           <li> <Link href="cart.html" className="text-dark">Delivery Time</Link></li>
-                           <li> <Link href="cart.html" className="text-dark">Order Payment</Link></li>
-                           <li> <Link href="checkout.html" className="text-dark">Checkout</Link></li>
-                           <li> <Link href="successful.html" className="text-dark">Successful</Link></li>
-                        </ul>
+                        
+                       
+                           <ul className="list-unstyled list-padding" key={groupIndex}>
+                              {group.map((link, linkIndex) => (
+                                 <li key={linkIndex}> <Link href={link.slug} className="text-dark">{link?.name}</Link></li>
+                              ))}
+                           </ul>
+                        
                      </aside>
+                     ))}
+                     
                      <aside className="col-md">
-                        <h6 className="title">My Order</h6>
+                        {/* <h6 className="title">Extra Pages</h6> */}
                         <ul className="list-unstyled list-padding">
-                           <li> <Link href="my_order.html" className="text-dark">My order</Link></li>
-                           <li> <Link href="status_complete.html" className="text-dark">Status Complete</Link></li>
-                           <li> <Link href="status_onprocess.html" className="text-dark">Status on Process</Link></li>
-                           <li> <Link href="status_canceled.html" className="text-dark">Status Canceled</Link></li>
-                           <li> <Link href="review.html" className="text-dark">Review</Link></li>
-                        </ul>
-                     </aside>
-                     <aside className="col-md">
-                        <h6 className="title">My Account</h6>
-                        <ul className="list-unstyled list-padding">
-                           <li> <Link className="text-dark" href="my_account.html"> My account</Link></li>
-                           <li> <Link className="text-dark" href="promos.html"> Promos</Link></li>
-                           <li> <Link className="text-dark" href="my_address.html"> My address</Link></li>
-                           <li> <Link className="text-dark" href="terms_conditions.html"> Terms &amp; conditions</Link></li>
-                           <li> <Link className="text-dark" href="help_support.html"> Help &amp; support</Link></li>
-                           <li> <Link className="text-dark" href="help_ticket.html"> Help ticket</Link></li>
-                           <li> <Link className="text-dark" href="signin.html"> Logout</Link></li>
-                        </ul>
-                     </aside>
-                     <aside className="col-md">
-                        <h6 className="title">Extra Pages</h6>
-                        <ul className="list-unstyled list-padding">
-                           <li><Link href="promo_details.html" className="text-dark"> Promo Details </Link></li>
-                           <li><Link href="terms_conditions.html" className="text-dark"> Conditions </Link></li>
-                           <li><Link href="help_support.html" className="text-dark"> Help Support </Link></li>
-                           <li><Link href="refund_payment.html" className="text-dark"> Refund Payment </Link></li>
-                           <li><Link href="faq.html" className="text-dark"> FAQ </Link></li>
-                           <li><Link href="signin.html" className="text-dark"> Sign In </Link></li>
+                           <li><Link href="https://play.google.com/store/apps/details?id=com.dubucket&pcampaignid=web_share" target="_blanck"><img src="../assets/img/playmarket.png" height="30" alt="not found" /></Link></li>
+                           {socialItem.map((objectitem) => (
+                             <Link href={objectitem?.link} target="_blanck" className="btn btn-icon btn-light"><i className={objectitem?.icon}></i></Link>
+                           ))}
+                         
+                     
+                        
                         </ul>
                      </aside>
                   </div>
                </div>
             </section>
             <section className="footer-bottom border-top py-4">
-               <div className="container">
-                  <div className="row">
+               <div className="container-fluid">
+                  <div className="row" style={{ display: 'flex', justifyContent: 'center' }} >
                      <div className="col-md-6">
-                        <span className="pr-2">© 2023 Dubucket</span>
-                        <span className="pr-2"><a href="privacy.html" className="text-dark">Privacy</a></span>
-                        <span className="pr-2"><a href="terms%26conditions.html" className="text-dark">Terms & Conditions</a></span>
+                        <span className="pr-2">© 2024 Dubucket food & bevrage</span>
+                        {/* <span className="pr-2"><a href="privacy.html" className="text-dark">Privacy</a></span>
+                        <span className="pr-2"><a href="terms%26conditions.html" className="text-dark">Terms & Conditions</a></span> */}
                      </div>
                      <div className="col-md-6 text-md-right">
-                        <Link href="#"><img src="img/app" height="30" alt="not found" /></Link>
-                        <Link href="#"><img src="img/playmarket.png" height="30" alt="not found" /></Link>
+                        <Link><img src="../assets/img/payment.png" height="30" alt="not found" /></Link>
                      </div>
                   </div>
                </div>

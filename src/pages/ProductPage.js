@@ -13,17 +13,18 @@ const ProductPage = () => {
   const { slug } = useParams();
   const [ProductData, setProduct] = useState([]);
   const [CategoryData, setCategory] = useState([]);
+  
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     axios.get(`/product-by-category/${slug}`)
       .then((response) => {
-        if (response.status === 200 || response.status === 201 || response.status === 'ok') {
+        if (response.status === 200) {
           if (response.data.category != null) {
             setCategory(response.data.category);
           }
           if (response.data.products.length > 0) {
-            setIsLoading(false); // loading false
-            setProduct(response.data.products);
+              setProduct(response.data.products);
+              setIsLoading(false); // loading false
           }
 
           // console.log(response.data.products);
@@ -35,11 +36,13 @@ const ProductPage = () => {
         console.log('the catch error is ===>', error)
       })
   }, [slug]);
+
+
   return (
     <>
       <Header />
       <section className="py-4 osahan-main-body">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
             <div className="col-lg-12">
               <div className="osahan-home-page">
@@ -56,7 +59,7 @@ const ProductPage = () => {
                             <title>Dubucket-{CategoryData?.name}</title>
                             <link rel="canonical" href={process.env.REACT_APP_API_ENDPOINT+'/'+CategoryData?.slug} />
                           </Helmet>
-                          <ProductList CategoryData={CategoryData} ProductList={ProductData} />
+                          <ProductList CategoryData={CategoryData} ProductList={ProductData}/>
                         </>
                       )
                     }

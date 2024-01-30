@@ -17,7 +17,7 @@ const Home = () => {
   useEffect(() => {
     axios.get('/')
       .then((response) => {
-        if (response.status === 200 || response.status === 201 || response.status === 'ok') {
+        if(response.status === 200) {
           setIsLoading(false); // loading false
           setCategory(response.data.homepage_categories)
           setbestProducts(response.data.bestProducts);
@@ -32,18 +32,17 @@ const Home = () => {
         console.log('the catch error is ===>', error)
       })
   }, []);
-
-
+  
   return (
     <>
       <Helmet>
-        <title>Dubucket-chicken</title>
+        <title>Dubucket Food & Beverage - Fast Delivery</title>
       </Helmet>
       <Header />
       <section className="py-4 osahan-main-body">
-        <div className="container">
+        <div className="container-fluid">
           <div className="row">
-            <div className="col-lg-12">
+            <div className="col-lg-12 col-md-12 com-sm-12">
               <div className="osahan-home-page">
                 <div className="osahan-body">
                   {(() => {

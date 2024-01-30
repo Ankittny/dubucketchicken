@@ -448,6 +448,84 @@ a.selected {
 	right: 0;
 	z-index: 9
 }
+/* add by ankit sidebar */
+
+.left-section{
+    height: calc(100vh - 151px);
+    left: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: sticky;
+    top: 151px;
+    width: 330px;
+}
+.item-cart{
+	position: relative;
+    font-weight: bold;
+    color: white;
+    top: 11px;
+}
+.list-unstyled{
+    margin-bottom: 0;
+    margin-top: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.category {
+  font-size: 14px;
+}
+
+.category-list{
+    border-bottom: 1px solid rgb(12, 12, 12);
+}
+
+.jUjInL{
+    position: relative;
+    padding: 12px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 12px;
+    border-right: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(238, 238, 238);
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.gwBBkO{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.giIiuy{
+    height: 48px;
+    width: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.fONBrx{
+    position: relative;
+    top: 8px;
+    width: 100%;
+    transition-duration: 0.3s;
+    transform: scale(1.05) translateY(-4px);
+}
+
+.fYRgqC {
+    color: rgb(31, 31, 31);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+
+/* end side bar css */
 
 span.c-number {
 	width: 32px;
@@ -474,7 +552,27 @@ span.c-number {
 }
 
 .osahan-cart-item-profile img {
-	height: 38px
+	height: 500px
+}
+
+/* add by ankit */
+
+.mycart{
+	background-color: rgb(71 194 87);
+    border-radius: 8px;
+    cursor: pointer;
+    height: 43px;
+    width: 112px;
+    -webkit-box-pack: center;
+    /* justify-content: center; */
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+	padding: 0px 0px 0px 13px;
+}
+.mycart .icofont-shopping-cart{
+	color:white;
+	font-size: 32px;
 }
 
 .index-osahan-logo {
@@ -619,9 +717,9 @@ span.c-number {
 }
 .cart-items-show{
 	position: absolute;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: bold;
-    top: 24px;
+    /* top: 24px; */
 }
 
 
@@ -709,13 +807,16 @@ label {
 .btn:focus {
 	box-shadow: none !important
 }
-
 .badge {
-	font-size: 11px;
-	padding: 7px 9px;
-	font-weight: 500
+    font-size: 10px;
+    padding: 6px 5px;
+    font-weight: 500;
+    margin: 0!important;
 }
-
+.badge-danger {
+    color: #fff;
+    background-color: rgb(241 89 37);
+}
 .badge-success {
 	color: #28a745;
 	background-color: rgb(40 167 69/15%)
@@ -724,11 +825,6 @@ label {
 .badge-warning {
 	color: #eab002;
 	background-color: rgb(255 193 7/15%)
-}
-
-.badge-danger {
-	color: #ff6000;
-	background-color: rgb(255 96 0/15%)
 }
 
 .badge-info {
@@ -1168,7 +1264,8 @@ label {
 }
 
 .icofont-size {
-	font-size: 16px
+	font-size: 18px !important;
+    font-weight: bold !important;
 }
 
 .bg-color-head {
@@ -1231,4 +1328,134 @@ label {
 	.landing-page.shadow-sm.bg-success.col-lg-6 {
 		display: none
 	}
+}
+
+	
+	
+.login_txt{
+    display: none;
+}
+.login_icon{
+    display: inline-block;
+}
+.filter_Bar{
+	position: relative;
+	background: #fff;
+	padding: 5px 15px;
+	border-radius: 6px;
+}
+.osahan--products-listing{
+	position: relative;
+	width: 100%;
+}
+.osahan-main-body .container-fluid{
+	padding: 0px 10px;
+}
+.list-card-image img{
+	height: 175px;
+}
+.member-plan.position-absolute {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+.osahan-signin-main {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: url(../img/veg-bg.png)repeat;
+    margin-top: 5px;
+	padding: 50px 0px;
+}
+.osahan-signin-main::before {
+    position: absolute;
+    width: 100%;
+	top: 0;
+    content: '';
+    height: 100%;
+    background: #ffffffb5;
+}
+.osahan-signin.shadow-sm.bg-white.p-4.rounded {
+    box-shadow: 0px 0px 10px #ccc!important;
+}
+.form-check {
+    margin-bottom: 15px;
+}
+.tab_change2u {
+    color: #f15925;
+    font-weight: 600;
+}
+.webAppCartItem{
+	position: relative;
+	width:100%;
+	text-align: right;
+}
+.webAppCartItem .login{
+	position: relative;
+	width:100%;	
+}
+.anchor_login {
+    position: relative;
+    display: inline-block;
+    margin-top: 20px!important;
+}
+.anchor_caRt {
+    position: relative;
+    display: flex;
+    float: right;
+    margin-top: 10px!important;
+}
+.wenAppSeArch {
+    position: relative;
+    width: 100%;
+    padding: 15px 0px;
+}
+.wenAppSeArch input {
+    position: relative;
+    width: 100%;
+    border-radius: 25px;
+    height: 34px;
+}
+.btnSeaRchItem {
+    position: absolute;
+    right: -8px;
+    border: none;
+    color: #fff;
+    width: 34px;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    background: #f15925;
+    top: 15px;
+}
+.wenAppLoc {
+    position: relative;
+    width: 100%;
+    padding: 15px 0px;
+}
+.webAppLogo {
+    position: relative;
+    width: 100%;
+    padding: 15px 0px 5px 0px;
+}
+.webBanner {
+    padding: 0;
+	position: relative;
+	width: 100%;
+}
+.footer-bottom img{
+	height: 18px;
+}
+section.footer-bottom{
+    background: #f0f2f5;
+}
+.my_AcOunt {
+    position: relative;
+    margin-top: 20px!important;
+    display: inline-block;
+    font-weight: 700!important;
+}
+.loginn_txt {
+    display: inline;
+    margin: 5px;
 }

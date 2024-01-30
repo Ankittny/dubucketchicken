@@ -4,7 +4,7 @@ const instance = axios.create({
     baseURL: process.env.REACT_APP_API_ENDPOINT + "api/",
     headers: {
       "content-Type": "application/json",
-      Accept: "application/json",
+       Accept: "application/json",
     },
   });
 export default {
@@ -103,10 +103,10 @@ export default {
       method: "GET",
       url: `add-to-cart?${query}`,
     }),
-  deleteCartItem: (data) =>
+  deleteCartItem: (data,token) =>
     instance({
       method: "GET",
-      url: `cart-item-remove/${data.id}?token=${data.token}`,
+      url: `cart-item-remove/${data}?token=${token}`,
     }),
   clearCart: (data) =>
     instance({
@@ -119,11 +119,23 @@ export default {
       url: `user/address?token=${token}`,
       data,
     }),
-    editAddress: (id, token) =>
-        instance({
-            method: "GET",
-            url: `user/address/${id}?token=${token}`,
-        }),
+  googleregister: (data) =>
+    instance({
+      method: "POST",
+      url: `googleregister`,
+      data,
+    }),
+
+  editAddress: (id, token) =>
+    instance({
+      method: "GET",
+      url: `user/address/${id}?token=${token}`,
+  }),
+categorys: () =>
+  instance({
+    method: "GET",
+    url: `category-list`,
+}),
     updateAddress: (id, token, data) =>
         instance({
             method: "PUT",
@@ -139,18 +151,39 @@ export default {
     instance({
       method: "GET",
       url: `cart-item-decrement/${id}?token=${token}`,
-    }),
+  }),
+  SocialIcon: () =>
+    instance({
+      method: "GET",
+      url: `admin/social-link`,
+  }),
+    
   deleteAddress: (id, token) =>
     instance({
       method: "DELETE",
       url: `user/address/${id}?token=${token}`,
     }),
+    SearchData: (inputSearch) =>
+    instance({
+      method: "GET",
+      url: `product?search=${inputSearch}&categories=`,
+    }),
+
+
+    
   cashOnDelivery: (data, token) =>
     instance({
       method: "POST",
       url: `user/checkout/cash-on-delivery?token=${token}`,
       data,
     }),
+  PaywithPhonepe: (data, token) =>
+    instance({
+      method: "POST",
+      url: `user/checkout/pay-with-paytm?token=${token}`,
+      data,
+    }),
+
   stipePay: (data, token) =>
     instance({
       method: "POST",
@@ -168,6 +201,30 @@ export default {
       method: "GET",
       url: `user/order?token=${token}`,
     }),
+  about: () =>
+    instance({
+      method: "GET",
+      url: `about-us`,
+    }),
+    privacypolicy: () =>
+    instance({
+      method: "GET",
+      url: `privacy-policy`,
+    }),
+    termsandconditions: () =>
+    instance({
+      method: "GET",
+      url: `terms-and-conditions`,
+    }),
+   
+    ordersshow: (orderid,token) =>
+    instance({
+      method: "GET",
+      url: `user/order-show/${orderid}?token=${token}`,
+    }),
+
+    
+    
   compare: (token) =>
     instance({
       method: "GET",
@@ -226,4 +283,20 @@ export default {
             method: "DELETE",
             url: `user/remove-account?token=${token}`,
         }),
+    GetCart: (token) =>
+    instance({
+      method: "GET",
+      url: `user/checkout?token=${token}`,
+    }),  
+    GetProductByCat: (slug) =>
+    instance({
+      method: "GET",
+      url: `/subcategory-by-category/${slug}`,
+    }), 
+    
+    ProductByCategory: (slug) =>
+    instance({
+      method:"GET",
+      url:`/product-by-category/${slug}`,
+    }),
 };

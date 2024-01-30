@@ -448,6 +448,84 @@ a.selected {
 	right: 0;
 	z-index: 9
 }
+/* add by ankit sidebar */
+
+.left-section{
+    height: calc(100vh - 151px);
+    left: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: sticky;
+    top: 151px;
+    width: 330px;
+}
+.item-cart{
+	position: relative;
+    font-weight: bold;
+    color: white;
+    top: 11px;
+}
+.list-unstyled{
+    margin-bottom: 0;
+    margin-top: 0;
+    list-style: none;
+    padding-left: 0;
+}
+.category {
+  font-size: 14px;
+}
+
+.category-list{
+    border-bottom: 1px solid rgb(12, 12, 12);
+}
+
+.jUjInL{
+    position: relative;
+    padding: 12px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 12px;
+    border-right: 1px solid rgb(238, 238, 238);
+    border-bottom: 1px solid rgb(238, 238, 238);
+    cursor: pointer;
+    background-color: #ffffff;
+}
+
+.gwBBkO{
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 12px;
+}
+
+.giIiuy{
+    height: 48px;
+    width: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+}
+
+.fONBrx{
+    position: relative;
+    top: 8px;
+    width: 100%;
+    transition-duration: 0.3s;
+    transform: scale(1.05) translateY(-4px);
+}
+
+.fYRgqC {
+    color: rgb(31, 31, 31);
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+
+/* end side bar css */
 
 span.c-number {
 	width: 32px;
@@ -474,7 +552,27 @@ span.c-number {
 }
 
 .osahan-cart-item-profile img {
-	height: 38px
+	height: 500px
+}
+
+/* add by ankit */
+
+.mycart{
+	background-color: rgb(71 194 87);
+    border-radius: 8px;
+    cursor: pointer;
+    height: 43px;
+    width: 112px;
+    -webkit-box-pack: center;
+    /* justify-content: center; */
+    -webkit-box-align: center;
+    align-items: center;
+    display: flex;
+	padding: 0px 0px 0px 13px;
+}
+.mycart .icofont-shopping-cart{
+	color:white;
+	font-size: 32px;
 }
 
 .index-osahan-logo {
@@ -594,15 +692,19 @@ span.c-number {
 }
 
 .list-card-image .price {
-	font-size: 14px
+	font-size: 16px;
+	font-weight: bold;
+}
+.offer-price{
+	font-size: 18px;
 }
 
 .list-card-image a.btn {
 	border: 3px solid #f1f2f5;
-	width: 33px;
+	width: 66px;
 	background: #fff;
 	height: 33px;
-	border-radius: 50px !important;
+	/* border-radius: 50px !important; */
 	color: #ff6000;
 	font-size: 17px;
 	box-shadow: 0 0 3px #dedede;
@@ -613,6 +715,13 @@ span.c-number {
 	align-items: center;
 	justify-content: center
 }
+.cart-items-show{
+	position: absolute;
+    font-size: 18px;
+    font-weight: bold;
+    /* top: 24px; */
+}
+
 
 .list-card-image a.btn:hover,
 .list-card-image a.btn:focus {
@@ -625,13 +734,14 @@ span.c-number {
 }
 
 .c-it p {
-	font-size: 11px;
+	font-size: 18px;
 	overflow: hidden;
 	text-overflow: ellipsis
+
 }
 
 .c-it img {
-	height: 40px
+	height: 100px
 }
 
 .opt {
@@ -1156,7 +1266,8 @@ label {
 }
 
 .icofont-size {
-	font-size: 16px
+	font-size: 18px !important;
+    font-weight: bold !important;
 }
 
 .bg-color-head {
@@ -1171,10 +1282,16 @@ label {
 	position: absolute;
 	right: 16px
 }
+.text-qred{
+	color: red;
+}
+.text-muted {
+    color: #1d1e20!important;
+}
 
 @media(max-width:992px) {
 	.osahan-main-nav {
-		display: none
+		display: block
 	}
 
 	.mobile-nav {
@@ -1188,7 +1305,7 @@ label {
 	}
 
 	footer.section-footer {
-		display: none
+		display: block;
 	}
 
 	.landing-page.shadow-sm.bg-success.col-lg-6 {

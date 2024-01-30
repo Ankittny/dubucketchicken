@@ -1,37 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from '@mui/material/Link';
 import postApi from "../Model/postApi.js";
-import { useDispatch} from "react-redux";
-import { fetchCart } from "../store/Cart";
+import { useDispatch } from "react-redux";
+import {addToCart } from "../Actions/cartActions"; 
 import { useHistory } from 'react-router-dom';
+import "react-toastify/dist/ReactToastify.css";
+import Loader from './Loader';
+
 
 
 const ProductList = (props) => {
+    //console.log(props?.ProductList);
+    const slug = props?.CategoryData?.slug;
     const dispatch = useDispatch();
+    const [ProductData, setProduct] = useState(props?.ProductList);
+    const [SubcatData, setSubCategory] = useState([]);
+    const [CategoryData, setCategory] = useState(props?.CategoryData);
+    const [CatName,SetCatName] = useState(props.CategoryData?.name);
     const [isLoading, setIsLoading] = useState(false);
+    const [loadingProductId, setLoadingProductId] = useState(null);
     const history = useHistory();
+    useEffect(() => {
+        postApi.GetProductByCat(slug).then((response) => {
+                if (response.status === 200) {
+                    if (response.data.subCategories != null) {
+                        setSubCategory(response.data.subCategories);
+                    }
+                } else {
+                    alert("false");
+                }
+            }).catch((error) => {
+                console.log('the catch error is ===>', error)
+            })
+    }, [slug]);
 
-    const addToCart = (id) => {
+
+    const handleClick = (item) => {
         setIsLoading(true);
+        const slug = item?.CategoryData ? item?.CategoryData?.slug : item?.subcat?.slug;
+        const name = item?.CategoryData ? item?.CategoryData?.name : item?.subcat?.name;
+        SetCatName(name);
+        postApi.ProductByCategory(slug).then((response) => {
+            if (response.status === 200) {
+                if (response.data.products.length > 0) {
+                    setProduct(response.data.products);
+                    setTimeout(() => {
+                        setIsLoading(false); // loading false
+                      }, 1000);
+                }
+            } else {
+                setProduct([]);
+                setTimeout(() => {
+                    setIsLoading(false); // loading false
+                  }, 1000);
+            }
+        }).catch((error) => {
+            console.log('the catch error is ===>', error)
+        });
+    }
+
+
+
+    const addToCartHandler = (objet) => {
+        setLoadingProductId(objet.id);
+       // setIsLoadingButton(true);
         const auth = JSON.parse(localStorage.getItem('auth'));
-        if (auth!=null) {
-            const uri = `token=${auth.access_token}&product_id=${id}&quantity=${"1"}`;
-            postApi
-                .addToCard(uri)
-                .then((res) =>
-                    console.log(res),
-                    setIsLoading(false), 
-                )
-                .catch((err) => {
-                    setIsLoading(false);
-                    console.log(
-                        err.response &&
-                        err.response.data.message &&
-                        err.response.data.message
-                    );
+        if (auth != null) {
+            const url = `token=${auth?.access_token}&product_id=${objet?.id}&quantity=${"1"}`;
+            //console.log("this is test Ankit",url);
+            postApi.addToCard(url).then((res) =>{
+               
+                    dispatch(addToCart(objet?.id,auth.access_token));
+                    setLoadingProductId(null);
+                    //console.log(res)
+                }).catch((err) => {
+                    if(err.response.status===403){
+                        if(err.response.data.message==="Quantity not available in our stock"){
+                            dispatch(addToCart(objet?.id,auth.access_token));
+                            setLoadingProductId(null);
+                            return false;
+                        } if(err.response.data.message === "Item already exist"){
+                             dispatch(addToCart(objet?.id,auth.access_token));
+                             setLoadingProductId(null);
+                        } else {
+                            //console.log(err.response);
+                            dispatch(addToCart(objet?.id,auth.access_token));
+                            setLoadingProductId(null);
+                        } 
+                    }
                 });
-                dispatch(fetchCart());
         } else {
+            //alert("this is test");
             history.push("/login")
         }
     };
@@ -39,21 +98,56 @@ const ProductList = (props) => {
 
     return (
         <>
-            <section className="py-4 osahan-main-body">
-                <div className="container">
+            <section className="py-10 osahan-main-body osahan--products-listing">
+                <div className="container-fluid">
                     <div className="row">
-                        <div className="col-lg-12">
+                        <div className="col-lg-3 col-md-3 col-sm-3" >
                             <div className="osahan-listing">
-                                <div className="d-flex align-items-center mb-3">
-                                    <h4>{[props.CategoryData?.name]}</h4>
+                                <div className="left-section scrollbar-custom">
+                                    <ul className="category list-unstyled">
+                                        <nav className="category-list">
+                                            <Link className="jUjInL" onClick={() => handleClick({CategoryData})}>
+                                                <div className="gwBBkO">
+                                                    <div className=" giIiuy">
+                                                        <img src={process.env.REACT_APP_API_ENDPOINT + CategoryData?.image} alt={CategoryData?.image} className=" fONBrx" />
+                                                    </div>
+                                                    <div className="fYRgqC">{CategoryData?.name}</div>
+                                                </div>
+                                            </Link>
+                                            {SubcatData.map((subcat) => (
+                                                <Link className="jUjInL" onClick={() => handleClick({subcat})}>
+                                                    <div className="gwBBkO">
+                                                        <div className=" giIiuy">
+                                                            <img src={process.env.REACT_APP_API_ENDPOINT + subcat?.image} alt={subcat?.image} className=" fONBrx" />
+                                                        </div>
+                                                        <div className="fYRgqC">{subcat?.name}</div>
+                                                    </div>
+                                                </Link>
+                                            ))}
+                                        </nav>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-lg-9 col-md-9 col-sm-9" >
+                            <div className="osahan-listing">
+                                <div className="filter_Bar d-flex align-items-center mb-3">
+                                    <h4>{[CatName]}</h4>
                                     <div className="m-0 text-center ml-auto">
                                         <Link href="#" data-toggle="modal" data-target="#exampleModal" className="btn text-muted bg-white mr-2"><i className="icofont-filter mr-1"></i> Filter</Link>
                                         <Link href="#" data-toggle="modal" data-target="#exampleModal" className="btn text-muted bg-white"><i className="icofont-signal mr-1"></i> Sort</Link>
                                     </div>
                                 </div>
+                {(() => {
+                    if (isLoading === true) {
+                      return (
+                        < Loader />
+                      )
+                    } else {
+                        return (
                                 <div className="row">
-                                    {props.ProductList.map((object) => (
-                                        <div className="col-6 col-lg-3 col-md-12 mb-3">
+                                    {ProductData.map((object) => (
+                                        <div className="col-6 col-lg-3 col-md-6 mb-3">
                                             <div className="list-card bg-white h-100 rounded overflow-hidden position-relative shadow-sm">
                                                 <div className="list-card-image">
 
@@ -69,7 +163,9 @@ const ProductList = (props) => {
                                                             <img src={process.env.REACT_APP_API_ENDPOINT + object?.thumb_image} className="img-fluid item-img w-100 mb-3" alt="title" />
                                                             <h6>{object?.short_name}</h6>
                                                         </Link>
-                                                        <div className="d-flex align-items-center">
+                                                        <h6>{object?.unitkg}</h6>
+                                                        <div className="m-view d-flex align-items-center">
+                                                            
                                                             {(() => {
                                                                 if (object.price && object.offer_price) {
                                                                     return (
@@ -81,8 +177,13 @@ const ProductList = (props) => {
                                                                     )
                                                                 }
                                                             })()}
-                                                            <button onClick={() => addToCart(object?.id)} className="btn btn-success btn-sm ml-auto"> {isLoading ? 'Loading...' : 'Add +'}</button>
-                                                            <div className="collapse qty_show" id="collapseExample1">
+
+                                                            {object.qty === 0 || object.qty ===-1  ? (
+                                                                <button  className="btn btn-danger btn-sm ml-auto">Out of stock</button>
+                                                                ) : (
+                                                                <button onClick={() => addToCartHandler(object)} className="btn btn-success btn-sm ml-auto" disabled={loadingProductId === object?.id}>{loadingProductId === object?.id ? 'Loading...' : 'Add'}</button>
+                                                            )}
+                                                            {/* <div className="collapse qty_show" id="collapseExample1">
                                                                 <div>
                                                                     <span className="ml-auto" href="#">
                                                                         <form id='myform' className="cart-items-number d-flex" method='POST' action='#'>
@@ -92,7 +193,7 @@ const ProductList = (props) => {
                                                                         </form>
                                                                     </span>
                                                                 </div>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                     </div>
 
@@ -100,9 +201,10 @@ const ProductList = (props) => {
                                             </div>
                                         </div>
                                     ))}
-
-
                                 </div>
+                      )
+                    }            
+               })()}                 
                             </div>
                         </div>
                     </div>

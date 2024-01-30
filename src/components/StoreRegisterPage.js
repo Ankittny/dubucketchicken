@@ -56,7 +56,7 @@ const StoreRegisterPage = () => {
         setIsLoading(false);
         setIsSuccess(res.data.notification);
         setTimeout(() => {
-          history.push(`/verify-you/${email}`)
+          // history.push(`/verify-you/${email}`)
         }, 2000)
         setFname("");
         setEmail("");
@@ -72,23 +72,10 @@ const StoreRegisterPage = () => {
 
   return (
     <>
-      <section className="osahan-main-body">
+       <section className="osahan-main-body osahan-signin-main">
         <div className="container">
-          <div className="row d-flex align-items-center justify-content-center vh-100">
-            <div className="landing-page shadow-sm bg-success col-lg-6">
-              <Link className="position-absolute btn-sm btn btn-outline-light m-4 zindex" href="/">Skip <i className="icofont-bubble-right"></i>
-              </Link>
-              <div className="osahan-slider m-0">
-                <div className="osahan-slider-item text-center">
-                  <div className="d-flex align-items-center justify-content-center vh-100 flex-column">
-                    <i className="icofont-sale-discount display-1 text-warning"></i>
-                    <h4 className="my-4 text-white">Best Prices & Offers</h4>
-                    <p className="text-center text-white-50 mb-5 px-4">Cheaper prices than your local <br />supermarket, great cashback offers to top it off. </p>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+          <div className="row d-flex align-items-center justify-content-center">
+           
             <div className="col-lg-6 pl-lg-5">
               <div className="osahan-signup shadow bg-white p-4 rounded">
                 <div className="p-3">
@@ -198,7 +185,7 @@ const StoreRegisterPage = () => {
                   </form>
                   <p className="text-muted text-center small py-2 m-0">or</p>
                   <p className="text-center mt-3 mb-0">
-                    <Link href="/login" className="text-dark">Already have an account! Sign in</Link>
+                    <Link href="/login" className="text-dark">Already have an account! <span class="tab_change2u">Sign in</span></Link>
                   </p>
                 </div>
               </div>
