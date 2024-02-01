@@ -9,21 +9,20 @@ const OfferBanner = (props) => {
       desktop: {
          breakpoint: { max: 3000, min: 1024 },
          items: 1,
-         slidesToSlide: 4, // optional, default to 1.
+         slidesToSlide: 1, // optional, default to 1.
       },
       tablet: {
          breakpoint: { max: 1024, min: 464 },
          items: 2,
-         slidesToSlide: 4, // optional, default to 1.
+         slidesToSlide: 1, // optional, default to 1.
       },
       mobile: {
          breakpoint: { max: 3000, min: 0 },
          items: 1,
-         slidesToSlide: 4, // optional, default to 1.
+         slidesToSlide: 1, // optional, default to 1.
       },
    };
-
-
+   
    return (
       <>
          { /* <div class="d-flex align-items-center mb-3">

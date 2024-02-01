@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Link from '@mui/material/Link';
 import Loader from './Loader';
 import postApi from "../Model/postApi.js";
-import CryptoJS from 'crypto-js';
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Actions/cartActions";
 import Modal from 'react-bootstrap/Modal';
@@ -21,18 +20,18 @@ const Cart = (props) => {
   const [subtotal, setSubtotal] = useState(0);
   const [checksum, setChecksum] = useState('');
   const [orderId, setorderId] = useState('');
-  const [UrlButton, setButton] = useState('');
-  const [buttnview, setView] = useState(false);
+  // const [UrlButton, setButton] = useState('');
+  // const [buttnview, setView] = useState(false);
 
   //set state for address 
   const [name, setName] = useState('');
-  const [country, setCountry] = useState('2');
-  const [city, setCity] = useState('17');
-  const [state, setState] = useState('13');
+  // const [country, setCountry] = useState('2');
+  // const [city, setCity] = useState('17');
+  // const [state, setState] = useState('13');
   const [pincode, setPincode] = useState('');
   const [location, setLocation] = useState('');
   const [mobile, setMobile] = useState('');
-  const [refreshPage, setRefreshPage] = useState(false);
+  // const [refreshPage, setRefreshPage] = useState(false);
   const [type, setAddressType] = useState("");
 
   const [nameerror, SetNameError] = useState("");
@@ -96,11 +95,11 @@ const Cart = (props) => {
       }
     }).catch((err) => {
       setCartitem([]);
-      console.log("this is test", err);
+      //console.log("this is test", err);
       localStorage.removeItem('addressid');
       localStorage.removeItem('cartItems');
 
-      window.location.href = "http://dubucket.com/cart";
+      window.location.href = "http://localhost:3000/cart";
     });
   }
   useEffect(() => {
@@ -181,7 +180,7 @@ const Cart = (props) => {
       setLoadingProductId(null);
       localStorage.removeItem('addressid');
       localStorage.removeItem('cartItems')
-      window.location.href = "http://dubucket.com/order/success";
+      window.location.href = "http://localhost:3000/order/success";
     }).catch((error) => {
       console.log('the catch error is ===>', error)
     });
@@ -260,7 +259,7 @@ const Cart = (props) => {
             // Reload the page after 3000 milliseconds (3 seconds)
             window.location.reload();
           }, 3000);
-          console.log("Response:", response);
+          //console.log("Response:", response);
           // Handle successful response (if needed)
         })
         .catch((error) => {
@@ -272,8 +271,6 @@ const Cart = (props) => {
 
 
   const UpdateAddressData = async (id) => {
-
-    alert(id);
     const auth = JSON.parse(localStorage.getItem('auth'));
     if (name == "") {
       SetNameError("Please enter Full Name");
@@ -362,7 +359,7 @@ const Cart = (props) => {
       setAddressType(response?.data.address.type);
       setLocation(response?.data.address.address);
       // setEditAddress(response?.data.address);
-      //window.location.href = "http://dubucket.com/order/success";
+      //window.location.href = "http://localhost:3000/order/success";
     }).catch((error) => {
       console.log('the catch error is ===>', error)
     });
@@ -408,7 +405,7 @@ const Cart = (props) => {
 
           localStorage.removeItem('addressid');
           localStorage.removeItem('cartItems')
-          window.location.href = "http://dubucket.com/order/success";
+          window.location.href = "http://localhost:3000/order/success";
 
           // console.log("this is test,",response);
         }).catch((error) => {
@@ -428,7 +425,7 @@ const Cart = (props) => {
 
 
 
-  const initiatePayment = async () => {
+  const initiatePayment = async (total) => {
     try {
       const response = await axios.get(`https://paytm.kiddostyles.com/webApitest.php?price=${total}`);
       const { txnToken, orderid } = response.data;
@@ -441,11 +438,10 @@ const Cart = (props) => {
   };
 
   useEffect(() => {
-    initiatePayment();
+    initiatePayment(total);
   }, [total]);
 
   const handlePaytmPayment = () => {
-
     if (window.Paytm && window.Paytm.CheckoutJS) {
 
       window.Paytm.CheckoutJS.init(paytmConfig)
@@ -459,7 +455,19 @@ const Cart = (props) => {
       console.error('Paytm CheckoutJS not available');
     }
   };
-
+    if (window.Paytm && window.Paytm.CheckoutJS) {
+      window.Paytm.CheckoutJS.init(paytmConfig)
+        .then(function onSuccess() {
+          window.Paytm.CheckoutJS.invoke();
+        })
+        .catch(function onError(error) {
+          console.error('Error initializing Paytm payment:', error);
+        });
+    } else {
+      console.error('Paytm CheckoutJS not available');
+    }
+ 
+  
 
 
 
@@ -545,7 +553,7 @@ const Cart = (props) => {
                               <div>
                                 <div className="p-3 bg-white rounded shadow-sm w-100">
                                   <div className="d-flex align-items-center mb-2">
-                                    <p className="mb-0 h6">{Addseritems?.type}</p>
+                                    <p className="mb-0 h6">{Addseritems?.type.toUpperCase()}({Addseritems?.name})</p>
                                     <p className="mb-0 badge badge-success ml-auto">
                                       {Addseritems.default_shipping === 1 ? (
                                         <>
@@ -599,7 +607,7 @@ const Cart = (props) => {
                       </p>
                       <p className="mb-1">Store Charges <span className="float-right text-dark">₹ 0</span>
                       </p>
-                      <p className="mb-3">Delivery Fee <span data-toggle="tooltip" data-placement="top" title="Delivery partner fee - $3" className="text-info ml-1">
+                      <p className="mb-3">Delivery Fee <span data-toggle="tooltip" data-placement="top" title="Delivery partner fee - ₹30" className="text-info ml-1">
                         <i className="icofont-info-circle"></i>
                       </span>
                         <span className="float-right text-dark">₹ {delivery}</span>

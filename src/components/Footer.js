@@ -28,7 +28,7 @@ useEffect(()  => {
     { length: Math.ceil(links.length / groupSize) },
     (_, index) => links.slice(index * groupSize, (index + 1) * groupSize)
   );
-console.log(groupedLinks);
+//console.log(groupedLinks);
 
     return (
         <>
@@ -62,11 +62,12 @@ console.log(groupedLinks);
                      <aside className="col-md">
                         <h6 className="title">Useful Links</h6>
                         <ul className="list-unstyled list-padding">
-                           <li> <Link href="/about" className="text-dark">About</Link></li>
-                           <li> <Link href="/contact" className="text-dark">Contact</Link></li>
-                           <li> <Link href="/become-seller" className="text-dark">Become Seller</Link></li>
-                           <li> <Link href="/privacy" className="text-dark">Privacy Policy</Link></li>
-                           <li> <Link href="/terms-and-conditions" className="text-dark">Terms And Conditions</Link></li>
+                           <li> <Link target="_blanck" href="/about" className="text-dark">About</Link></li>
+                           <li> <Link target="_blanck" href="/contact" className="text-dark">Contact</Link></li>
+                           <li> <Link target="_blanck" href="/seller-register" className="text-dark">Become Seller</Link></li>
+                           <li> <Link target="_blanck" href="/privacy-policy" className="text-dark">Privacy Policy</Link></li>
+                           <li> <Link target="_blanck" href="/terms-and-conditions" className="text-dark">Terms And Conditions</Link></li>
+                           <li> <Link target="_blanck" href="/refund-and-cancellation" className="text-dark">Refund and cancellation</Link></li>
                            
                         </ul>
                      </aside>

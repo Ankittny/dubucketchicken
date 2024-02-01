@@ -14,6 +14,7 @@ import MyWallet from "./pages/MyWallet.js";
 import About from "./pages/About.js";
 import Privacy from "./pages/Privacy.js";
 import TermsAndConditions from "./pages/TermsAndConditions.js";
+import RefundandCancellation from "./pages/RefundandCancellation.js";
 import Contact from "./pages/Contact.js";
 import Search from "./pages/Search.js";
 import BecomeSeller from "./pages/BecomeSeller.js"
@@ -37,8 +38,9 @@ const App = () => {
         <Route   path="/become-seller" component={BecomeSeller} />
         <Route   path="/seller-register" component={SellerRegister} />
        
-        <Route   path="/privacy" component={Privacy} />
+        <Route   path="/privacy-policy" component={Privacy} />
         <Route   path="/terms-and-conditions" component={TermsAndConditions} />
+        <Route   path="/refund-and-cancellation" component={RefundandCancellation} />
         <Route   path="/contact" component={Contact} />
         <Route   path="/search" component={Search} />
         <Route   path="/wallet" component={MyWallet} />
